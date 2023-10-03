@@ -65,13 +65,13 @@
                                     <div>
                                         <strong>Name :</strong>
                                         <input type="text" name="name" class="edit_name form-control">
-                                        <span class="text-danger hide" id="name_error">Name Field is Required with only
+                                        <span class="text-danger hide" id="edit_name_error">Name Field is Required with only
                                             alphabets (A-Z or a-z)</span>
                                     </div>
                                     <div>
                                         <strong>Phone :</strong>
                                         <input type="text" name="phone" class="edit_phone form-control">
-                                        <span id="phone_error" class="text-danger"></span>
+                                        <span id="edit_phone_error" class="text-danger"></span>
 
                                     </div>
                                     <div>
