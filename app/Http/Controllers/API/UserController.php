@@ -80,7 +80,6 @@ class UserController extends Controller
 
     public function update(Request $request){
 
-        // dd($request->all());
         $rules = [
             'name' => 'required|regex:/^[A-Za-z\s]+$/',
             'phone' => 'required|numeric|digits:10',

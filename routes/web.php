@@ -26,6 +26,7 @@ Route::get('/editdynamic-div',[UserController::class,'edit_load_data'])->name('e
 Route::post('/save',[UserController::class,'save'])->name('save.data');
 Route::post('/update',[UserController::class,'update'])->name('update.data');
 Route::get('/reload',[UserController::class,'reloadData'])->name('user.reload');
+Route::get('/editreload',[UserController::class,'edit_reloadData'])->name('edit_user.reload');
 Route::get('/edit/{id}',[UserController::class,'edit'])->name('user.edit');
 Route::delete('/delete/{id}',[UserController::class,'delete'])->name('user.delete');
 Route::get('/search',[UserController::class,'search'])->name('user.search');

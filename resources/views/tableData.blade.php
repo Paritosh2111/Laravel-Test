@@ -48,6 +48,7 @@
                 aria-hidden="true">
                 <form id="editForm"  enctype="multipart/form-data" method="POST">
                     {{ csrf_field() }}
+                    @method("POST")
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -60,6 +61,7 @@
                                 <!-- Modal content goes here -->
                                 <div>
                                     <input type="hidden" name="id" class="edit_id">
+
                                     <div>
                                         <strong>Name :</strong>
                                         <input type="text" name="name" class="edit_name form-control">
@@ -74,12 +76,12 @@
                                     </div>
                                     <div>
                                         <strong>Gender :</strong><br>
-                                        <input class="form-check-input edit_gender" name="gender" type="radio"
+                                        <input class="form-check-input edit_gender form-control" name="gender" type="radio"
                                             value="male" name="flexRadioDefault" id="flexRadioDefault1">
                                         <label class="form-check-label" for="flexRadioDefault1">
                                             Male
                                         </label>
-                                        <input class="form-check-input edit_gender" name="gender" type="radio"
+                                        <input class="form-check-input edit_gender form-control" name="gender" type="radio"
                                             value="female" name="flexRadioDefault" id="flexRadioDefault2">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             Female
@@ -90,7 +92,7 @@
                                         @if ($hobbies)
                                             @foreach ($hobbies as $hobby)
                                                 <div class="form-check">
-                                                    <input class="form-check-input edit_hobby" name="hobby[]"
+                                                    <input class="form-check-input edit_hobby form-control" name="hobby[]"
                                                         type="checkbox" value="{{ $hobby->id }}">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         {{ $hobby->name }}
@@ -105,12 +107,12 @@
                                         <strong>Experience :
                                             <a class="btn btn-primary rounded-circle ml-2 mb-1 edit_exp">+</a>
                                         </strong>
-                                        <div id="edit_dynamic_div" class="edit_dynamic_div">
+                                        <div id="edit_dynamic_div" class="edit_dynamic_div form-control">
                                         </div>
                                     </div>
                                     <div>
                                         <strong>Education : <span class="text-danger">*</span></strong>
-                                        <select class="form-select edit_education" name="education"
+                                        <select class="form-select edit_education form-control" name="education"
                                             aria-label="Default select example" required>
                                             <option selected disabled value="">Open this select menu</option>
                                             @foreach ($edus as $edu)

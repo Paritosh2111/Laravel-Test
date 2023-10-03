@@ -137,7 +137,18 @@ class UserController extends Controller
             $data->hobbies()->attach($hobbies);
         }
 
-        return response()->json(['success' => true]);
+        $users = User::with('hobbies')->get();
+        $edus = Education::all();
+        $hobbies = Hobby::all();
+        $comps = Company::all();
+
+        $view = view('tableData', ['users' => $users,'edus'=>$edus,'hobbies'=>$hobbies,'comps'=>$comps])->render();
+
+        return response()->json(['success' => true, 'data' => $view]);
+
+
+
+        // return response()->json(['success' => true]);
     }
 
 
@@ -149,6 +160,19 @@ class UserController extends Controller
 
         return view('tableData',compact('users','hobbies','edus','comps'))->render();
     }
+
+    public function edit_reloadData(){
+
+        $users = User::with('hobbies','experiences')->get();
+        $edus = Education::all(); //we need all data of education,company and hobby not relational that's why here 3 different queries i have taken.
+        $comps = Company::all();
+        $hobbies = Hobby::all();
+        return view('render',compact('edus','comps','users','hobbies'))->render();
+
+
+        // return view('tableData',compact('users','hobbies','edus','comps'))->render();
+    }
+
 
     public function delete($id){
 

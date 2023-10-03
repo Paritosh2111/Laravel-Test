@@ -11,7 +11,9 @@
 </head>
 
 <body>
+    <div class="render">
     <div class="container">
+
         <div class="row mt-5 mb-5">
             <div class="col-10 offset-1 mt-5">
                 <div class="card">
@@ -29,7 +31,7 @@
                         <form id="formData" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
-                                @include("form")
+                            @include('form')
 
                             <div class="form-group text-center mt-2">
                                 <button class="btn btn-success btn-submit">Submit</button>
@@ -42,7 +44,7 @@
     </div>
 
     <strong> Search :
-    <input type="text" data-url="{{ route("user.search") }}" class="search_data form-control"><br>
+        <input type="text" data-url="{{ route('user.search') }}" class="search_data form-control"><br>
     </strong>
     <table class="table table-bordered">
         <tr>
@@ -58,6 +60,7 @@
         </tbody>
 
     </table>
+    </div>
 
 </body>
 
@@ -130,13 +133,60 @@
 
 
     // For edit form submit
-    $(document).ready(function() {
-        $('#editForm').submit(function(e) {
+    // $(document).ready(function() {
+    //     $('#editForm').submit(function(e) {
+    //         e.preventDefault();
+    //         var editedForm = new FormData(this);
+    //         var name = $('.edit_name').val();
+    //         var phone = $('.edit_phone').val();
+
+    //         var check = 1;
+
+    //         if (!/^[A-Za-z\s]+$/.test(name)) {
+    //             check = 0; // Validation failed
+    //             $('#edit_name_error').removeClass("hide");
+    //         } else {
+    //             $('#edit_name_error').addClass('hide');
+    //         }
+
+    //         if (!/^\d{10}$/.test(phone)) {
+    //             check = 0;
+    //             $('#edit_phone_error').text('Phone number must contain 10 digits');
+    //         } else {
+    //             $('#edit_phone_error').text('');
+    //         }
+
+    //         if (check === 1) {
+    //             $.ajax({
+    //                 type: 'POST', //here somehow Put method was not supported
+    //                 url: "{{ route('update.data') }}",
+    //                 data: editedForm,
+    //                 dataType: 'json',
+    //                 contentType: false,
+    //                 processData: false,
+    //                 success: function(data) {
+    //                     if (data.success == true) {
+    //                         $("#myModal").modal('hide');
+    //                         swal('User Updated Successfully !');
+    //                         $("#reload_data").load("{{ route('user.reload') }}");
+    //                     } else {
+    //                         alert('Error');
+    //                         $("#reload_data").load("{{ route('user.reload') }}");
+    //                     }
+    //                 },
+    //             });
+    //         } else {
+    //             alert('Validation error');
+    //         }
+    //     });
+    // });
+
+    // $(document).ready(function() {
+        $(document).on('submit', '#editForm', function(e) {
             e.preventDefault();
             var editedForm = new FormData(this);
             var name = $('.edit_name').val();
             var phone = $('.edit_phone').val();
-
             var check = 1;
 
             if (!/^[A-Za-z\s]+$/.test(name)) {
@@ -155,7 +205,7 @@
 
             if (check === 1) {
                 $.ajax({
-                    type: 'POST', //here somehow Put method was not supported
+                    type: 'POST', // Use the appropriate HTTP method (POST or PUT) here
                     url: "{{ route('update.data') }}",
                     data: editedForm,
                     dataType: 'json',
@@ -165,10 +215,17 @@
                         if (data.success == true) {
                             $("#myModal").modal('hide');
                             swal('User Updated Successfully !');
-                            $("#reload_data").load("{{ route('user.reload') }}");
+                            // $("#reload_data").load("{{ route('user.reload') }}");
+
+                            $(".render").load("{{ route('edit_user.reload') }}");
+                            $('#editForm')[0].reset();
+                            // location.reload();
+
                         } else {
                             alert('Error');
                             $("#reload_data").load("{{ route('user.reload') }}");
+                            $('#editForm')[0].reset();
+
                         }
                     },
                 });
@@ -176,7 +233,10 @@
                 alert('Validation error');
             }
         });
-    });
+
+        // You can repeat the above code for other forms if needed.
+    // });
+
 
     // end
 
@@ -328,23 +388,22 @@
 </script>
 {{-- search system JS --}}
 <script>
-    $(document).on('input','.search_data',function(){
+    $(document).on('input', '.search_data', function() {
 
         var data = $(this).val();
         var url = $(this).attr("data-url");
         $.ajax({
-            url:url,
+            url: url,
             type: "GET",
-            data:{
+            data: {
                 _token: "{{ csrf_token() }}", // Corrected csrf_token() function
                 data: data,
             },
-            success: function (response) {
-            if (response.success) {
-                $("#reload_data").html(response.data);
-            } else {
+            success: function(response) {
+                if (response.success) {
+                    $("#reload_data").html(response.data);
+                } else {}
             }
-        }
         })
     })
 </script>
